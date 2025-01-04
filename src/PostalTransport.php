@@ -99,7 +99,7 @@ class PostalTransport extends AbstractTransport
         }
 
         if ($symfonyMessage->getHeaders()) {
-            foreach (parseHeadersToKeyValue($symfonyMessage->getHeaders()->toArray()) as $key => $value) {
+            foreach ($this->parseHeadersToKeyValue($symfonyMessage->getHeaders()->toArray()) as $key => $value) {
                 $postalMessage->header($key, $value);
             }
         }
