@@ -1,12 +1,12 @@
 {
-    "name": "synergitech/laravel-postal",
+    "name": "monovm/laravel-postal",
     "description": "This library integrates Postal with the standard Laravel mail framework.",
     "keywords": [
         "Laravel",
         "Postal",
         "Email"
     ],
-    "homepage": "https://github.com/synergitech/laravel-postal",
+    "homepage": "https://github.com/monovm/laravel-postal",
     "license": "MIT",
     "require": {
         "php": "^8.0",
