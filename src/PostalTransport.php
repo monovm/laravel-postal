@@ -98,6 +98,12 @@ class PostalTransport extends AbstractTransport
             $postalMessage->subject($symfonyMessage->getSubject());
         }
 
+        if ($symfonyMessage->getHeaders()) {
+            foreach (parseHeadersToKeyValue($symfonyMessage->getHeaders()->toArray()) as $key => $value) {
+                $postalMessage->header($key, $value);
+            }
+        }
+
         if ($symfonyMessage->getTextBody()) {
             $postalMessage->plainBody($symfonyMessage->getTextBody());
         }
@@ -181,6 +187,29 @@ class PostalTransport extends AbstractTransport
     {
         return new SendMessage();
     }
+
+    function parseHeadersToKeyValue(array $headers): array
+    {
+        $parsedHeaders = [];
+
+        foreach ($headers as $header) {
+            $colonPos = strpos($header, ':');
+
+            if ($colonPos !== false) {
+                $key = trim(substr($header, 0, $colonPos));
+                $value = trim(substr($header, $colonPos + 1));
+
+                if (isset($parsedHeaders[$key])) {
+                    $parsedHeaders[$key] .= ' ' . $value;
+                } else {
+                    $parsedHeaders[$key] = $value;
+                }
+            }
+        }
+
+        return $parsedHeaders;
+    }
+
 
     /**
      * Get the string representation of the transport.
